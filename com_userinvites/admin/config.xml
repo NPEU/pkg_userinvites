@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+    <fieldset
+        name="email"
+        label="COM_USERINVITES_CONFIG_EMAIL_SETTINGS_LABEL"
+        description="COM_USERINVITES_CONFIG_EMAIL_SETTINGS_DESC"
+    >
+        <field
+            name="subject"
+            type="text"
+            label="COM_USERINVITES_CONFIG_EMAIL_SUBJECT_LABEL"
+            description="COM_USERINVITES_CONFIG_EMAIL_SUBJECT_DESC"
+            default="Registration Invitation"
+        />
+        <field
+            name="template"
+            type="textarea"
+            label="COM_USERINVITES_CONFIG_EMAIL_TEMPLATE_LABEL"
+            description="COM_USERINVITES_CONFIG_EMAIL_TEMPLATE_DESC"
+            default="Dear website user,&#xD;&#xD;You are invited to register for our website.&#xD;&#xD;Below is your unique registration link.&#xD;Please follow this link to register:&#xD;%s/component/users/?view=registration%s&#xD;&#xD;Please note that this invitation is only valid for %s after which it will expire and you will need to be re-invited.&#xD;&#xD;Best regards"
+            rows="10"
+            cols="93"
+        />
+    </fieldset>
+    <fieldset
+        name="options"
+        label="COM_USERINVITES_CONFIG_OPTIONS_SETTINGS_LABEL"
+        description="COM_USERINVITES_CONFIG_OPTIONS_SETTINGS_DESC"
+    >
+        <field
+            name="lifespan"
+            type="text"
+            label="COM_USERINVITES_CONFIG_OPTIONS_LIFESPAN_LABEL"
+            description="COM_USERINVITES_CONFIG_TEMPLATE_LIFESPAN_DESC"
+            default="1 week"
+        />
+    </fieldset>
+    <fieldset
+        name="permissions"
+        label="JCONFIG_PERMISSIONS_LABEL"
+        description="JCONFIG_PERMISSIONS_DESC"
+    >
+        <field
+            name="rules"
+            type="rules"
+            label="JCONFIG_PERMISSIONS_LABEL"
+            class="inputbox"
+            validate="rules"
+            filter="rules"
+            component="com_userinvites"
+            section="component"
+        />
+    </fieldset>
+</config>
