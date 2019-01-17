@@ -17,20 +17,20 @@ $listOrder = $this->escape($this->filter_order);
 $listDirn  = $this->escape($this->filter_order_dir);
 
 function getGroups($groupsJSON, $usergroups) {
-	$usersgroups = array();
-	$groups = json_decode($groupsJSON);
-	foreach ($groups as $group) {
-		$usersgroups[] = $usergroups[$group];
-	}
-	return implode(', ', $usersgroups);
+    $usersgroups = array();
+    $groups = json_decode($groupsJSON);
+    foreach ($groups as $group) {
+        $usersgroups[] = $usergroups[$group];
+    }
+    return implode(', ', $usersgroups);
 }
 
 ?>
-<form action="index.php?option=com_userinvites&view=records" method="post" id="adminForm" name="adminForm">
+<form action="index.php?option=com_userinvites&view=userinvites" method="post" id="adminForm" name="adminForm">
     <?php if (!empty($this->items)): ?>
     <div class="row-fluid">
         <div class="span6">
-            <?php echo JText::_('COM_USERINVITES_RECORDS_FILTER'); ?>
+            <?php echo JText::_('COM_USERINVITES_INVITES_FILTER'); ?>
             <?php
                 echo JLayoutHelper::render(
                     'joomla.searchtools.default',
@@ -47,24 +47,24 @@ function getGroups($groupsJSON, $usergroups) {
                     <?php echo JHtml::_('grid.checkall'); ?>
                 </th>
                 <th width="20%">
-                    <?php echo JHtml::_('grid.sort', 'COM_USERINVITES_HEADING_SENT_TO', 'sent_to', $listDirn, $listOrder); ?>
+                    <?php echo JHtml::_('grid.sort', 'COM_USERINVITES_HEADING_SENT_TO', 'email', $listDirn, $listOrder); ?>
                 </th>
-                <th width="20%">
+                <th width="10%" class="center">
                     <?php echo JHtml::_('grid.sort', 'COM_USERINVITES_HEADING_SENT_BY', 'sent_by', $listDirn, $listOrder); ?>
                 </th>
-                <th width="10%">
+                <th width="20%" class="center">
                     <?php echo JHtml::_('grid.sort', 'COM_USERINVITES_HEADING_SENT_DATE', 'sent_date', $listDirn, $listOrder); ?>
                 </th>
-                <th width="10%">
+                <th width="20%" class="center">
                     <?php echo JHtml::_('grid.sort', 'COM_USERINVITES_HEADING_EXPIRED_DATE', 'expired_date', $listDirn, $listOrder); ?>
                 </th>
-                <th width="10%">
+                <th width="10%" class="center">
                     <?php echo JHtml::_('grid.sort', 'COM_USERINVITES_HEADING_STATUS', 'status', $listDirn, $listOrder); ?>
                 </th>
-                <th width="20%">
+                <th width="10%" class="center">
                     <?php echo JHtml::_('grid.sort', 'COM_USERINVITES_HEADING_GROUPS', 'groups', $listDirn, $listOrder); ?>
                 </th>
-                <th width="4%">
+                <th width="4%" class="center">
                     <?php echo JHtml::_('grid.sort', 'COM_USERINVITES_HEADING_ID', 'id', $listDirn, $listOrder); ?>
                 </th>
             </tr>
@@ -76,7 +76,7 @@ function getGroups($groupsJSON, $usergroups) {
                 </td>
             </tr>
         </tfoot>
-        <tbody>  
+        <tbody>
         <?php foreach ($this->items as $i => $item) :
             $link = JRoute::_('index.php?option=com_userinvites&task=record.edit&id=' . $item->id);
             $canCheckin = $user->authorise('core.manage', 'com_checkin') || $item->checked_out == $user->get('id') || $item->checked_out == 0;
@@ -93,7 +93,7 @@ function getGroups($groupsJSON, $usergroups) {
                     <?php echo $this->escape($item->sender_name); ?>
                 </td>
                 <td class="center">
-                    <?php echo JHtml::_('date', $item->sent, JText::_('DATE_FORMAT_LC2')); ?>
+                    <?php echo JHtml::_('date', $item->sent_on, JText::_('DATE_FORMAT_LC2')); ?>
                 </td>
                 <td class="center">
                     <?php echo JHtml::_('date', $item->expires, JText::_('DATE_FORMAT_LC2')); ?>

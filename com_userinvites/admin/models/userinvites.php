@@ -39,25 +39,25 @@ class UserinvitesModelUserinvites extends JModelList
     }
 
     /**
-	 * Gets an array of objects from the results of database query.
-	 *
-	 * @param   string   $query       The query.
-	 * @param   integer  $limitstart  Offset.
-	 * @param   integer  $limit       The number of records.
-	 *
-	 * @return  array  An array of results.
-	 */
-	protected function _getList($query, $limitstart = 0, $limit = 0)
-	{
-		$items = parent::_getList($query, $limitstart, $limit);
+     * Gets an array of objects from the results of database query.
+     *
+     * @param   string   $query       The query.
+     * @param   integer  $limitstart  Offset.
+     * @param   integer  $limit       The number of records.
+     *
+     * @return  array  An array of results.
+     */
+    protected function _getList($query, $limitstart = 0, $limit = 0)
+    {
+        $items = parent::_getList($query, $limitstart, $limit);
 
-		foreach ($items as $item) {
-			$item->status = time() < strtotime($item->expires)
-				          ? 'Pending'
-				          : 'Expired';
-		}
-		return $items;
-	}
+        foreach ($items as $item) {
+            $item->status = time() < strtotime($item->expires)
+                          ? 'Pending'
+                          : 'Expired';
+        }
+        return $items;
+    }
 
     /**
      * Method to build an SQL query to load the list data.
@@ -71,12 +71,12 @@ class UserinvitesModelUserinvites extends JModelList
         $query = $db->getQuery(true);
 
         // Create the base select statement.
-        $query->select('u.id, u.email, u.groups, u.email_body, u.sent_by, u.sent, u.expires')
-              ->from($db->quoteName('#__userinvitestbl') . ' AS u');
-              
+        $query->select('u.id, u.email, u.groups, u.email_body, u.sent_by, u.sent_on, u.expires')
+              ->from($db->quoteName('#__userinvites') . ' AS u');
+
         // Join the users for the sender:
-		$query->select('us.name AS sender_name');
-		$query->join('LEFT', '#__users AS us ON us.id = u.sent_by');
+        $query->select('us.name AS sender_name');
+        $query->join('LEFT', '#__users AS us ON us.id = u.sent_by');
 
         // Filter: like / search
         $search = $this->getState('filter.search');
@@ -85,7 +85,7 @@ class UserinvitesModelUserinvites extends JModelList
         {
             $like = $db->quote('%' . $search . '%');
             $query->where('u.email LIKE ' . $like);
-            $query->where('a.sent_by LIKE ' . $like);
+            $query->where('u.sent_by LIKE ' . $like);
         }
 
         // Filter by published state
@@ -101,7 +101,7 @@ class UserinvitesModelUserinvites extends JModelList
         }*/
 
         // Add the list ordering clause.
-        $orderCol   = $this->state->get('list.ordering', 'a.sent_on');
+        $orderCol   = $this->state->get('list.ordering', 'u.sent_on');
         $orderDirn  = $this->state->get('list.direction', 'asc');
 
         $query->order($db->escape($orderCol) . ' ' . $db->escape($orderDirn));

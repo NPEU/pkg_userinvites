@@ -12,7 +12,7 @@ defined('_JEXEC') or die;
 /**
  * UserInvites Records View
  */
-class UserInvitesViewRecords extends JViewLegacy
+class UserInvitesViewUserinvites extends JViewLegacy
 {
     /**
      * Display the UserInvites view
@@ -23,7 +23,7 @@ class UserInvitesViewRecords extends JViewLegacy
      */
     function display($tpl = null)
     {
-        
+
         // Get application
         $app = JFactory::getApplication();
         $context = "userinvites.list.admin.record";
@@ -35,13 +35,13 @@ class UserInvitesViewRecords extends JViewLegacy
         $this->filter_order_dir = $app->getUserStateFromRequest($context.'filter_order_Dir', 'filter_order_Dir', 'asc', 'cmd');
         $this->filterForm       = $this->get('FilterForm');
         $this->activeFilters    = $this->get('ActiveFilters');
-        
+
         $usergroupObjs = $this->get('Items', 'Groups');
-		$usergroups = array();
-		foreach ($usergroupObjs as $usergroup) {
-			$usergroups[$usergroup->id] = $usergroup->title;
-		}
-        
+        $usergroups = array();
+        foreach ($usergroupObjs as $usergroup) {
+            $usergroups[$usergroup->id] = $usergroup->title;
+        }
+
         $this->usergroups = $usergroups;
 
         // Check for errors.
@@ -69,7 +69,12 @@ class UserInvitesViewRecords extends JViewLegacy
      */
     protected function addToolBar()
     {
-        $title = JText::_('COM_USERINVITES_MANAGER_RECORDS');
+        $input = JFactory::getApplication()->input;
+
+        // Hide Joomla Administrator Main menu
+        #$input->set('hidemainmenu', true);
+
+        $title = JText::_('COM_USERINVITES_MANAGER_INVITES');
 
         if ($this->pagination->total)
         {
@@ -77,17 +82,16 @@ class UserInvitesViewRecords extends JViewLegacy
         }
 
         $canDo = UserinvitesHelper::getActions();
-        
-        JToolBarHelper::title($title, 'record');
-        
+
+        JToolBarHelper::title($title, 'userinvites');
+
         if ($canDo->get('core.admin')) {
-            JToolBarHelper::addNew('record.add');
-            if (!empty($this->items)) {                
+            if (!empty($this->items)) {
                 JToolBarHelper::custom('userinvites.resend', 'refresh.png', 'refresh_f2.png', 'COM_USERINVITES_TOOLBAR_RESEND', false);
                 JToolBarHelper::deleteList('', 'userinvites.delete', 'JTOOLBAR_DELETE');
                 JToolBarHelper::divider();
+                JToolBarHelper::preferences('com_userinvites');
             }
-            JToolBarHelper::preferences('com_userinvites');
         }
     }
     /**
@@ -95,7 +99,7 @@ class UserInvitesViewRecords extends JViewLegacy
      *
      * @return void
      */
-    protected function setDocument() 
+    protected function setDocument()
     {
         $document = JFactory::getDocument();
         $document->setTitle(JText::_('COM_USERINVITES_ADMINISTRATION'));

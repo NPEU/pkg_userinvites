@@ -9,35 +9,26 @@
 
 defined('_JEXEC') or die;
 
-// Force-load the Admin language file to avoid repeating form language strings:
-// (this model is used in the front-end too, and the Admin lang isn't auto-loaded there.)
-$lang = JFactory::getLanguage();
-$extension = 'com_userinvites';
-$base_dir = JPATH_COMPONENT_ADMINISTRATOR;
-$language_tag = 'en-GB';
-$reload = true;
-$lang->load($extension, $base_dir, $language_tag, $reload);
-
 /**
  * UserInvites Record Model
  */
 class UserinvitesModelUserinvite extends JModelAdmin
 {
     /**
-	 * Method override to check if you can edit an existing record.
-	 *
-	 * @param	array	$data	An array of input data.
-	 * @param	string	$key	The name of the key for the primary key.
-	 *
-	 * @return	boolean
-	 */
-	protected function allowEdit($data = array(), $key = 'id')
-	{
-		// Check specific edit permission then general edit permission.
-		return JFactory::getUser()->authorise('core.edit', 'com_userinvite.userinvite.' .
-			((int) isset($data[$key]) ? $data[$key] : 0))
-			or parent::allowEdit($data, $key);
-	}
+     * Method override to check if you can edit an existing record.
+     *
+     * @param   array   $data   An array of input data.
+     * @param   string  $key    The name of the key for the primary key.
+     *
+     * @return  boolean
+     */
+    protected function allowEdit($data = array(), $key = 'id')
+    {
+        // Check specific edit permission then general edit permission.
+        return JFactory::getUser()->authorise('core.edit', 'com_userinvite.userinvite.' .
+            ((int) isset($data[$key]) ? $data[$key] : 0))
+            or parent::allowEdit($data, $key);
+    }
 
 
     /**
@@ -49,7 +40,7 @@ class UserinvitesModelUserinvite extends JModelAdmin
      *
      * @return  JTable  A JTable object
      */
-    public function getTable($type = 'UserInvitesTbl', $prefix = 'UserInvitesTable', $config = array())
+    public function getTable($type = 'userinvites', $prefix = 'UserInvitesTable', $config = array())
     {
         return JTable::getInstance($type, $prefix, $config);
     }
@@ -61,15 +52,13 @@ class UserinvitesModelUserinvite extends JModelAdmin
      * @param   boolean  $loadData  True if the form is to load its own data (default case), false if not.
      *
      * @return  mixed    A JForm object on success, false on failure
-     *
-     * @since   1.6
      */
     public function getForm($data = array(), $loadData = true)
     {
         return false;
 
-        /*// Get the form.
-        $form = $this->loadForm(
+        // Get the form.
+        /*$form = $this->loadForm(
             'com_userinvites.record',
             'record',
             array(
@@ -84,26 +73,24 @@ class UserinvitesModelUserinvite extends JModelAdmin
         }
         return $form;*/
     }
-    
+
     /**
      * Method to get the script that have to be included on the form
      *
      * @return string   Script files
      */
-    public function getScript() 
+    public function getScript()
     {
         #return 'administrator/components/com_helloworld/models/forms/helloworld.js';
         return '';
     }
-    
+
     /**
      * Method to prepare the saved data.
      *
      * @param   array  $data  The form data.
      *
      * @return  boolean  True on success, False on error.
-     *
-     * @since   11.1
      */
     public function save($data)
     {
@@ -112,47 +99,48 @@ class UserinvitesModelUserinvite extends JModelAdmin
 
         // Get parameters:
         $params = JComponentHelper::getParams(JRequest::getVar('option'));
-        
-        // The following is generally useful for any app, but you'll need to make sure the database
-        // schema includes these fields:
+
+
         $user        = JFactory::getUser();
         $user_id     = $user->get('id');
         $date_format = 'Y-m-d H:i:s A';
-		$lifespan    = $params->get('lifespan');  
-        
+        $lifespan    = $params->get('lifespan');
+
         $data['sent_by'] = $user_id;
-		$data['sent']    = date($date_format);
-		$data['expires'] = date($date_format, strtotime('+' . $lifespan));
-        
-        
+        $data['sent_on'] = date($date_format);
+        $data['expires'] = date($date_format, strtotime('+' . $lifespan));
+
+
         if (isset($data['groups'])) {
-			$groups = new JRegistry;
-			$groups->loadArray($data['groups']);
-			$data['groups'] = (string) $groups;
-		} else {
-			$is_new = false;
-		}
+            $groups = new JRegistry;
+            $groups->loadArray($data['groups']);
+            $data['groups'] = (string) $groups;
+        } else {
+            $is_new = false;
+        }
 
-		$t_data = $data;
-		unset($t_data['emails']);
-		$state = $this->state;
-		$new_ids = array();
-		foreach ($data['emails'] as $id => $email) {
-			$t_data['email'] = $email;
-			if (!$is_new) {
-				$t_data['id'] = $id;
-			}
-			$t_data['code']  = UserinvitesHelper::createCode($email);
-			if (!parent::save($t_data)) {
-				return false;
-			}
-			$new_ids[] = $this->state->get('userinvite.id');
+        #echo '<pre>'; var_dump($data); echo '</pre>'; exit;
 
-			// Reset the state. Probably a better way of doing this.
-			$this->state       = $state;
-			$this->__state_set = null;
-		}
 
+        $t_data = $data;
+        unset($t_data['emails']);
+        $state = $this->state;
+        $new_ids = array();
+        foreach ($data['emails'] as $id => $email) {
+            $t_data['email'] = $email;
+            if (!$is_new) {
+                $t_data['id'] = $id;
+            }
+            $t_data['code']  = UserinvitesHelper::createCode($email);
+            if (!parent::save($t_data)) {
+                return false;
+            }
+            $new_ids[] = $this->state->get('userinvite.id');
+
+            // Reset the state. Probably a better way of doing this.
+            $this->state       = $state;
+            $this->__state_set = null;
+        }
 
         /*
         // By default we're only looking for and acting upon the 'email admins' setting.
@@ -167,12 +155,11 @@ class UserinvitesModelUserinvite extends JModelAdmin
                 $this->_sendEmail($email_data);
             }
         }
+*/
+        return true;
 
-        return parent::save($data);
-
-        */
     }
-    
+
     /**
      * Method to get the data that should be injected in the form.
      *
@@ -193,7 +180,7 @@ class UserinvitesModelUserinvite extends JModelAdmin
 
         return $data;
     }
-    
+
     /**
      * Method to get the data that should be injected in the form.
      *
@@ -205,10 +192,10 @@ class UserinvitesModelUserinvite extends JModelAdmin
             $mailfrom   = $app->getCfg('mailfrom');
             $fromname   = $app->getCfg('fromname');
             $sitename   = $app->getCfg('sitename');
-            $email      = JStringPunycode::emailToPunycode($email_data['email']);           
-            
+            $email      = JStringPunycode::emailToPunycode($email_data['email']);
+
             // Ref: JText::sprintf('LANG_STR', $var, ...);
-                
+
             $mail = JFactory::getMailer();
             $mail->addRecipient($email);
             $mail->addReplyTo($mailfrom);

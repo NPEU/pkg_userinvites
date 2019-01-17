@@ -36,8 +36,8 @@ class UserinvitesViewSendinvites extends JViewLegacy
         #$this->script = $this->get('Script');
 
         $form = new JForm('sendinvites', array('control'=>'jform'));
-		JForm::addFormPath(JPATH_COMPONENT . '/models/forms');
-		$form->loadFile('sendinvites', false);
+        JForm::addFormPath(JPATH_COMPONENT . '/models/forms');
+        $form->loadFile('sendinvites', false);
         $this->form = $form;
 
         // Check for errors.
@@ -68,30 +68,29 @@ class UserinvitesViewSendinvites extends JViewLegacy
         $input = JFactory::getApplication()->input;
 
         // Hide Joomla Administrator Main menu
-        $input->set('hidemainmenu', true);
+        #$input->set('hidemainmenu', true);
 
         $canDo = UserinvitesHelper::getActions();
-		JToolBarHelper::title(JText::_('COM_USERINVITES_MANAGER_SEND'), 'userinvites');
-		if ($canDo->get('core.create'))
-		{
-			JToolBarHelper::custom('sendinvites.save', 'mail', '', 'COM_USERINVITES_TOOLBAR_SEND', false);
-			JToolBarHelper::divider();
-			JToolBarHelper::preferences('com_userinvites');
-		}
+        JToolBarHelper::title(JText::_('COM_USERINVITES_MANAGER_SEND'), 'userinvites');
+        if ($canDo->get('core.create'))
+        {
+            JToolBarHelper::custom('sendinvites.save', 'mail', '', 'COM_USERINVITES_TOOLBAR_SEND', false);
+            JToolBarHelper::divider();
+            JToolBarHelper::preferences('com_userinvites');
+        }
     }
     /**
      * Method to set up the document properties
      *
      * @return void
      */
-    protected function setDocument() 
+    protected function setDocument()
     {
-        $isNew = ($this->item->id < 1);
         $document = JFactory::getDocument();
         $document->setTitle(JText::_('COM_USERINVITES_ADMINISTRATION'));
         #$document->addScript(JURI::root() . $this->script);
-        $document->addScript(JURI::root() . "/administrator/components/com_userinvites"
-                                          . "/views/record/submitbutton.js");
+        $document->addScript(JURI::root() . "administrator/components/com_userinvites"
+                                          . "/views/sendinvites/submitbutton.js");
         JText::script('COM_USERINVITES_RECORD_ERROR_UNACCEPTABLE');
     }
 }

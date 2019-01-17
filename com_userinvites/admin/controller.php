@@ -19,7 +19,7 @@ class UserInvitesController extends JControllerLegacy
      *
      * @var string
      */
-    #protected $default_view = 'userinvites';
+    protected $default_view = 'sendinvites';
 
     /**
      * display task
@@ -31,7 +31,6 @@ class UserInvitesController extends JControllerLegacy
         // Set default view if not set
         JFactory::getApplication()->input->set('view', JFactory::getApplication()->input->get('view', 'sendinvites'));
 
-        UserinvitesHelper::addSubmenu(JFactory::getApplication()->input->get('view'));
 
         $session = JFactory::getSession();
         $registry = $session->get('registry');
@@ -56,6 +55,6 @@ class UserInvitesController extends JControllerLegacy
         UserinvitesHelper::addStyle();
 
         // Set the submenu
-        #UserinvitesHelper::addSubmenu('userinvites');
+        UserinvitesHelper::addSubmenu(JFactory::getApplication()->input->get('view'));
     }
 }

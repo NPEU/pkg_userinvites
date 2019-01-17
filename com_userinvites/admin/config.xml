@@ -17,7 +17,7 @@
             type="textarea"
             label="COM_USERINVITES_CONFIG_EMAIL_TEMPLATE_LABEL"
             description="COM_USERINVITES_CONFIG_EMAIL_TEMPLATE_DESC"
-            default="Dear website user,&#xD;&#xD;You are invited to register for our website.&#xD;&#xD;Below is your unique registration link.&#xD;Please follow this link to register:&#xD;%s/component/users/?view=registration%s&#xD;&#xD;Please note that this invitation is only valid for %s after which it will expire and you will need to be re-invited.&#xD;&#xD;Best regards"
+            default="Dear website user,&#xD;&#xD;You are invited to register for our website.&#xD;&#xD;Below is your unique registration link.&#xD;Please follow this link to register:&#xD;%s&#xD;&#xD;Please note that this invitation is only valid for %s after which it will expire and you will need to be re-invited.&#xD;&#xD;Best regards"
             rows="10"
             cols="93"
         />

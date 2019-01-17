@@ -1,1 +1,1 @@
-DROP TABLE IF EXISTS `#__userinvitestbl`;
+DROP TABLE IF EXISTS `#__userinvites`;
