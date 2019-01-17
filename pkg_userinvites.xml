@@ -10,8 +10,8 @@
     <license>MIT License; see LICENSE.md</license>
 
     <packagename>userinvites</packagename>
-	<packager>Andy Kirk</packager>
-	<packagerurl>https://github.com/NPEU/pkg_userinvites/archive/v2.0.0.zip</packagerurl>
+    <packager>Andy Kirk</packager>
+    <packagerurl>https://github.com/NPEU/pkg_userinvites/archive/v2.0.0.zip</packagerurl>
 
     <!--  The version string is recorded in the components table -->
     <version>2.0.0</version>
