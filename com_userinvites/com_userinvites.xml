@@ -10,13 +10,13 @@
     <license>MIT License; see LICENSE.md</license>
 
     <!--  The version string is recorded in the components table -->
-    <version>1.0.0</version>
+    <version>2.0.0</version>
     <!-- The description is optional and defaults to the name -->
     <description>COM_USERINVITES_DESCRIPTION</description>
 
     <updateservers>
         <!-- Note: No spaces or linebreaks allowed between the server tags -->
-        <server type="extension" name="NPEU: com_userinvites Update Site">https://raw.githubusercontent.com/NPEU/com_userinvites/master/update-manifest.xml</server>
+        <server type="extension" name="NPEU: com_userinvites Update Site">https://raw.githubusercontent.com/NPEU/pkg_userinvites/master/com_userinvites/update-manifest.xml</server>
     </updateservers>
 
     <install> <!-- Runs on install -->
