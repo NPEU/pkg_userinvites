@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
     <update>
-        <name>NPEU: com_userinvites</name>
+        <name>NPEU: pkg_userinvites</name>
         <description>Joomla! com_userinvites component</description>
-        <element>com_userinvites</element>
+        <element>pkg_userinvites</element>
         <type>component</type>
         <version>2.0.1</version>
         <client>administrator</client>
