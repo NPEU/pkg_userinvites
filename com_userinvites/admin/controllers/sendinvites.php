@@ -43,8 +43,7 @@ class UserinvitesControllerSendinvites extends JControllerForm
         $form = new JForm('sendinvites', array('control'=>'jform'));
         JForm::addFormPath(JPATH_COMPONENT . '/models/forms');
         $form->loadFile('sendinvites', false);
-        if (!$form)
-        {
+        if (!$form) {
             $app->enqueueMessage($model->getError(), 'error');
 
             return false;
@@ -54,20 +53,15 @@ class UserinvitesControllerSendinvites extends JControllerForm
         $validData = $model->validate($form, $data);
         #echo "<pre>\n"; var_dump($validData); echo "</pre>\n"; exit;
         // Check for validation errors.
-        if ($validData === false)
-        {
+        if ($validData === false) {
             // Get the validation messages.
             $errors = $model->getErrors();
 
             // Push up to three validation messages out to the user.
-            for ($i = 0, $n = count($errors); $i < $n && $i < 3; $i++)
-            {
-                if ($errors[$i] instanceof Exception)
-                {
+            for ($i = 0, $n = count($errors); $i < $n && $i < 3; $i++) {
+                if ($errors[$i] instanceof Exception) {
                     $app->enqueueMessage($errors[$i]->getMessage(), 'warning');
-                }
-                else
-                {
+                } else {
                     $app->enqueueMessage($errors[$i], 'warning');
                 }
             }
@@ -97,8 +91,7 @@ class UserinvitesControllerSendinvites extends JControllerForm
         #echo '<pre>'; var_dump($emails); echo '</pre>'; exit;
 
         // Attempt to save the data.
-        if (!$new_ids = $model->save($validData))
-        {
+        if (!$new_ids = $model->save($validData)) {
             // Save the data in the session.
             $app->setUserState($context . '.data', $validData);
 

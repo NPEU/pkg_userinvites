@@ -173,8 +173,7 @@ class UserinvitesModelUserinvite extends JModelAdmin
             array()
         );
 
-        if (empty($data))
-        {
+        if (empty($data)) {
             $data = $this->getItem();
         }
 

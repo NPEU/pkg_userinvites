@@ -32,8 +32,7 @@ class UserInvitesTableuserinvites extends JTable
      */
     public function bind($array, $ignore = '')
     {
-        if (isset($array['params']) && is_array($array['params']))
-        {
+        if (isset($array['params']) && is_array($array['params'])) {
             // Convert the params field to a string.
             $parameter = new JRegistry;
             $parameter->loadArray($array['params']);

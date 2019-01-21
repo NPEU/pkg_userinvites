@@ -23,8 +23,7 @@ class UserinvitesModelUserinvites extends JModelList
      */
     public function __construct($config = array())
     {
-        if (empty($config['filter_fields']))
-        {
+        if (empty($config['filter_fields'])) {
             $config['filter_fields'] = array(
                 'sent_to',
                 'sent_by',
@@ -81,8 +80,7 @@ class UserinvitesModelUserinvites extends JModelList
         // Filter: like / search
         $search = $this->getState('filter.search');
 
-        if (!empty($search))
-        {
+        if (!empty($search)) {
             $like = $db->quote('%' . $search . '%');
             $query->where('u.email LIKE ' . $like);
             $query->where('u.sent_by LIKE ' . $like);

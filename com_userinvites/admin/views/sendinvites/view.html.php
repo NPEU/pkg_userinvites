@@ -41,8 +41,7 @@ class UserinvitesViewSendinvites extends JViewLegacy
         $this->form = $form;
 
         // Check for errors.
-        if (count($errors = $this->get('Errors')))
-        {
+        if (count($errors = $this->get('Errors'))) {
             JError::raiseError(500, implode('<br />', $errors));
 
             return false;
@@ -72,8 +71,7 @@ class UserinvitesViewSendinvites extends JViewLegacy
 
         $canDo = UserinvitesHelper::getActions();
         JToolBarHelper::title(JText::_('COM_USERINVITES_MANAGER_SEND'), 'userinvites');
-        if ($canDo->get('core.create'))
-        {
+        if ($canDo->get('core.create')) {
             JToolBarHelper::custom('sendinvites.save', 'mail', '', 'COM_USERINVITES_TOOLBAR_SEND', false);
             JToolBarHelper::divider();
             JToolBarHelper::preferences('com_userinvites');

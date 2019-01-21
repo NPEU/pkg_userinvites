@@ -58,8 +58,7 @@ abstract class UserinvitesHelper
 
         if (empty($userinvitesId)) {
             $assetName = 'com_userinvites';
-        }
-        else {
+        } else {
             $assetName = 'com_userinvites.userinvites.'.(int) $userinvitesId;
         }
 

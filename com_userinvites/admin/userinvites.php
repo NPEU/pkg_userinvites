@@ -22,8 +22,7 @@ $lang->load($extension, $base_dir, $language_tag, $reload);
 #echo '<pre>'; var_dump($lang); echo '</pre>'; exit;
 
 // Access check.
-if (!JFactory::getUser()->authorise('core.manage', 'com_userinvites'))
-{
+if (!JFactory::getUser()->authorise('core.manage', 'com_userinvites')) {
     return JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
 }
 
