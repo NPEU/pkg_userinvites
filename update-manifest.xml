@@ -10,6 +10,7 @@
         <downloads>
             <downloadurl type="full" format="zip">https://github.com/NPEU/pkg_userinvites/archive/v2.0.1.zip</downloadurl>
         </downloads>
+        <targetplatform name="joomla" />
         <tags>
             <tag>stable</tag>
         </tags>
