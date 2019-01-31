@@ -9,11 +9,7 @@
 
 defined('_JEXEC') or die;
 
-// import Joomla formrule library
-#jimport('joomla.form.formrule');
-
 JFormHelper::loadRuleClass('email');
-
 
 /**
  * Form Rule class for the Joomla Platform.

@@ -70,9 +70,6 @@ class UserInvitesViewUserinvites extends JViewLegacy
     {
         $input = JFactory::getApplication()->input;
 
-        // Hide Joomla Administrator Main menu
-        #$input->set('hidemainmenu', true);
-
         $title = JText::_('COM_USERINVITES_MANAGER_INVITES');
 
         if ($this->pagination->total) {

@@ -45,14 +45,14 @@ class UserinvitesControllerUserinvites extends JControllerAdmin
             JArrayHelper::toInteger($cid);
 
             $save_data = array('emails' => array());
-            // Get the invite data from ids, then resave them to update sent
-            // time and code:
+
+            // Get the invite data from ids, then resave them to update sent time and code:
             foreach ($cid as $id) {
                 $item = $model->getItem($id);
                 $save_data['emails'][$id] = $item->email;
             }
             if ($model->save($save_data)) {
-                #$items = array();
+
                 // Then reloop to to actaully send the emails:
                 foreach ($cid as $id) {
                     $item = $model->getItem($id);
@@ -64,9 +64,7 @@ class UserinvitesControllerUserinvites extends JControllerAdmin
             }
 
             $m =  count($cid) == 1 ? 'COM_USERINVITES_N_ITEMS_RESENT_1' : 'COM_USERINVITES_N_ITEMS_RESENT_MORE';
-            #$this->setMessage(JText::_($m, count($cid)));
             $this->setMessage(JText::plural($m, count($cid)));
-            #$this->setMessage(JText::plural($this->text_prefix . '_N_ITEMS_RESENT', count($cid)));
         }
 
         $this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_list, false));

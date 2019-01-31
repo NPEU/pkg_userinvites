@@ -31,10 +31,6 @@ class UserinvitesViewSendinvites extends JViewLegacy
     public function display($tpl = null)
     {
         // Get the Data
-        #$this->form = $this->get('Form');
-        #$this->item = $this->get('Item');
-        #$this->script = $this->get('Script');
-
         $form = new JForm('sendinvites', array('control'=>'jform'));
         JForm::addFormPath(JPATH_COMPONENT . '/models/forms');
         $form->loadFile('sendinvites', false);
@@ -66,9 +62,6 @@ class UserinvitesViewSendinvites extends JViewLegacy
     {
         $input = JFactory::getApplication()->input;
 
-        // Hide Joomla Administrator Main menu
-        #$input->set('hidemainmenu', true);
-
         $canDo = UserinvitesHelper::getActions();
         JToolBarHelper::title(JText::_('COM_USERINVITES_MANAGER_SEND'), 'userinvites');
         if ($canDo->get('core.create')) {
@@ -86,7 +79,6 @@ class UserinvitesViewSendinvites extends JViewLegacy
     {
         $document = JFactory::getDocument();
         $document->setTitle(JText::_('COM_USERINVITES_ADMINISTRATION'));
-        #$document->addScript(JURI::root() . $this->script);
         $document->addScript(JURI::root() . "administrator/components/com_userinvites"
                                           . "/views/sendinvites/submitbutton.js");
         JText::script('COM_USERINVITES_RECORD_ERROR_UNACCEPTABLE');

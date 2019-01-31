@@ -56,22 +56,6 @@ class UserinvitesModelUserinvite extends JModelAdmin
     public function getForm($data = array(), $loadData = true)
     {
         return false;
-
-        // Get the form.
-        /*$form = $this->loadForm(
-            'com_userinvites.record',
-            'record',
-            array(
-                'control' => 'jform',
-                'load_data' => $loadData
-            )
-        );
-
-        if (empty($form))
-        {
-            return false;
-        }
-        return $form;*/
     }
 
     /**
@@ -81,7 +65,6 @@ class UserinvitesModelUserinvite extends JModelAdmin
      */
     public function getScript()
     {
-        #return 'administrator/components/com_helloworld/models/forms/helloworld.js';
         return '';
     }
 
@@ -90,11 +73,10 @@ class UserinvitesModelUserinvite extends JModelAdmin
      *
      * @param   array  $data  The form data.
      *
-     * @return  boolean  True on success, False on error.
+     * @return  array  Array of saved ID's
      */
     public function save($data)
     {
-        #$is_new      = empty($data['id']);
         $is_new = true;
 
         // Get parameters:
@@ -119,9 +101,6 @@ class UserinvitesModelUserinvite extends JModelAdmin
             $is_new = false;
         }
 
-        #echo '<pre>'; var_dump($data); echo '</pre>'; exit;
-
-
         $t_data = $data;
         unset($t_data['emails']);
         $state = $this->state;
@@ -142,22 +121,7 @@ class UserinvitesModelUserinvite extends JModelAdmin
             $this->__state_set = null;
         }
 
-        /*
-        // By default we're only looking for and acting upon the 'email admins' setting.
-        // If any other settings are related to this save method, add them here.
-        $email_admins_string = $params->get('email_admins');
-        if (!empty($email_admins_string) && $is_new) {
-            $email_admins = explode(PHP_EOL, trim($email_admins_string));
-            foreach ($email_admins as $email) {
-                // Sending email as an array to make it easier to expand; it's quite likely that a
-                // real app would need more info here.
-                $email_data = array('email' => $email);
-                $this->_sendEmail($email_data);
-            }
-        }
-*/
-        return true;
-
+        return $new_ids;;
     }
 
     /**
@@ -179,30 +143,4 @@ class UserinvitesModelUserinvite extends JModelAdmin
 
         return $data;
     }
-
-    /**
-     * Method to get the data that should be injected in the form.
-     *
-     * @return  bool  Email success/failed to send.
-     */
-    /*private function _sendEmail($email_data)
-    {
-            $app        = JFactory::getApplication();
-            $mailfrom   = $app->getCfg('mailfrom');
-            $fromname   = $app->getCfg('fromname');
-            $sitename   = $app->getCfg('sitename');
-            $email      = JStringPunycode::emailToPunycode($email_data['email']);
-
-            // Ref: JText::sprintf('LANG_STR', $var, ...);
-
-            $mail = JFactory::getMailer();
-            $mail->addRecipient($email);
-            $mail->addReplyTo($mailfrom);
-            $mail->setSender(array($mailfrom, $fromname));
-            $mail->setSubject(JText::_('COM_USERINVITES_EMAIL_ADMINS_SUBJECT'));
-            $mail->setBody(JText::_('COM_USERINVITES_EMAIL_ADMINS_BODY'));
-            $sent = $mail->Send();
-
-            return $sent;
-    }*/
 }

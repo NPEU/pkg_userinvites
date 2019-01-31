@@ -23,6 +23,7 @@ class UserInvitesTableuserinvites extends JTable
     {
         parent::__construct('#__userinvites', 'id', $db);
     }
+    
     /**
      * Overloaded bind function
      *
@@ -40,31 +41,6 @@ class UserInvitesTableuserinvites extends JTable
         }
         return parent::bind($array, $ignore);
     }
-
-    /**
-     * Overloaded load function
-     *
-     * @param       int $pk primary key
-     * @param       boolean $reset reset data
-     * @return      boolean
-     * @see JTable:load
-     */
-    /*public function load($pk = null, $reset = true)
-    {
-        if (parent::load($pk, $reset))
-        {
-            // Convert the params field to a registry.
-            $params = new JRegistry;
-            $params->loadString($this->params, 'JSON');
-
-            $this->params = $params;
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }*/
 
     /**
      * Method to compute the default name of the asset.
@@ -88,16 +64,4 @@ class UserInvitesTableuserinvites extends JTable
     {
         return $this->title;
     }
-
-    /**
-     * Get the parent asset id for the record
-     *
-     * @return  int
-     */
-    /*protected function _getAssetParentId()
-    {
-        $asset = JTable::getInstance('Asset');
-        $asset->loadByName('com_userinvites');
-        return $asset->id;
-    }*/
 }

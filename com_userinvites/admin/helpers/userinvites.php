@@ -21,8 +21,6 @@ abstract class UserinvitesHelper
      */
     public static function addSubmenu($vName)
     {
-
-        #echo '<pre>'; var_dump($vName); echo '</pre>'; exit;
         JSubMenuHelper::addEntry(
             JText::_('COM_USERINVITES_MANAGER_SUBMENU_SEND'),
             'index.php?option=com_userinvites&view=sendinvites',
@@ -76,6 +74,7 @@ abstract class UserinvitesHelper
      */
     public static function sendInvite($item)
     {
+        echo '<pre>'; var_dump($item); echo '</pre>'; exit;
         $uri        = JUri::getInstance();
         $admin_path = str_replace('index.php', '', $uri->getPath());
 
@@ -121,35 +120,11 @@ abstract class UserinvitesHelper
             $lifespan
             );
 
-        /*// New mailer:
-        $mailer =& JFactory::getMailer();
-        // Set sender from config:
-        $config =& JFactory::getConfig();
-        $sender = array(
-            $config->get('config.mailfrom'),
-            $config->get('config.fromname')
-            );
-        $mailer->setSender($sender);
-        // Add recipient:
-        $recipient = $email;
-        $mailer->addRecipient($recipient);
-        // Set subject and body:
-        $mailer->setSubject($subject);
-        $mailer->setBody($body);
-        // And send it:
-        return $mailer->Send();*/
-
-
-
-
-
         $app        = JFactory::getApplication();
         $mailfrom   = $app->getCfg('mailfrom');
         $fromname   = $app->getCfg('fromname');
         $sitename   = $app->getCfg('sitename');
         $email      = JStringPunycode::emailToPunycode($email);
-
-        #echo '<pre>'; var_dump($email); echo '</pre>';exit;
 
         $mail = JFactory::getMailer();
         $mail->addRecipient($email);

@@ -51,7 +51,7 @@ class UserinvitesControllerSendinvites extends JControllerForm
 
         // Test whether the data is valid.
         $validData = $model->validate($form, $data);
-        #echo "<pre>\n"; var_dump($validData); echo "</pre>\n"; exit;
+
         // Check for validation errors.
         if ($validData === false) {
             // Get the validation messages.
@@ -80,15 +80,13 @@ class UserinvitesControllerSendinvites extends JControllerForm
             return false;
         }
 
-        // Split the emails into an array. Should probably use a filter for this,
-        // but can't see how to add custom filters to jform.
+        // Split the emails into an array. Should probably use a filter for this, but can't see
+        // how to add custom filters to jform.
         $emails = explode("\n", $validData['emails']);
         foreach ($emails as $id => $email) {
             $emails[$id] = trim($email);
         }
         $validData['emails'] = $emails;
-
-        #echo '<pre>'; var_dump($emails); echo '</pre>'; exit;
 
         // Attempt to save the data.
         if (!$new_ids = $model->save($validData)) {
@@ -113,14 +111,11 @@ class UserinvitesControllerSendinvites extends JControllerForm
         $failed = false;
         foreach ($new_ids as $id) {
             $item = $model->getItem($id);
-            #echo "<pre>\n"; var_dump($item); echo "</pre>\n";
             $r = UserinvitesHelper::sendInvite($item);
-            #echo "<pre>\n"; var_dump($r); echo "</pre>\n"; exit;
             if ($r instanceof JException) {
                 JError::raiseWarning(100, JText::_('COM_USERINVITES_ERROR_FAILED_EMAIL'));
                 $failed = true;
             }
-
         }
         if (!$failed) {
             $this->setMessage(
@@ -131,26 +126,6 @@ class UserinvitesControllerSendinvites extends JControllerForm
                 )
             );
         }
-
-
-
-        #exit;
-        // Redirect
-        // Set the record data in the session.
-        /*$recordId = $model->getState($this->context . '.id');
-           $this->holdEditId($context, $recordId);
-           $app->setUserState($context . '.data', null);
-           $model->checkout($recordId);
-
-           // Redirect back to the edit screen.
-           $this->setRedirect(
-           JRoute::_(
-           'index.php?option=' . $this->option . '&view=' . $this->view_item
-           . $this->getRedirectToItemAppend($recordId, $key), false
-           )
-           );*/
-
-        #echo "<pre>\n"; var_dump(JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_item, false)); echo "</pre>\n"; exit;
 
         $this->setRedirect(
             JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_item, false)

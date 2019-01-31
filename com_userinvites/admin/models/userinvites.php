@@ -86,18 +86,6 @@ class UserinvitesModelUserinvites extends JModelList
             $query->where('u.sent_by LIKE ' . $like);
         }
 
-        // Filter by published state
-        /*$published = $this->getState('filter.published');
-
-        if (is_numeric($published))
-        {
-            $query->where('a.published = ' . (int) $published);
-        }
-        elseif ($published === '')
-        {
-            $query->where('(a.published IN (0, 1))');
-        }*/
-
         // Add the list ordering clause.
         $orderCol   = $this->state->get('list.ordering', 'u.sent_on');
         $orderDirn  = $this->state->get('list.direction', 'asc');
