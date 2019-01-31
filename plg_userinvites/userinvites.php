@@ -93,6 +93,8 @@ class plgSystemUserInvites extends JPlugin
         if (!empty($form_data) && $form_data['email1'] != $result['email']) {
             // User did not enter the email they were invited with:
             JError::raiseWarning(100, JText::_('PLG_SYSTEM_USERINVITES_ERROR_UNREGISTERED_EMAIL'));
+            $app = JFactory::getApplication();
+            $app->redirect(JRoute::_('index.php?option=com_users&view=registration&code=' . $code, false));
         }
 
         return;
