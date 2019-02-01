@@ -56,7 +56,7 @@ class plgSystemUserInvites extends JPlugin
         $code = JFactory::getApplication()->input->get('code');
         if (empty($code)) {
             JLog::add('No registration code', JLog::NOTICE, 'plgSystemUserinvites');
-            JError::raiseError(404, JText::_('PLG_SYSTEM_USERINVITES_ERROR_INVALID_CODE')););
+            JError::raiseError(404, JText::_('PLG_SYSTEM_USERINVITES_ERROR_NO_CODE'));
             return;
         }
 
@@ -70,7 +70,7 @@ class plgSystemUserInvites extends JPlugin
         $result = $db->loadAssoc();
         if (is_null($result)) {
             JLog::add('Invlaid registration code', JLog::NOTICE, 'plgSystemUserinvites');
-            JError::raiseError(404);
+            JError::raiseError(404, JText::_('PLG_SYSTEM_USERINVITES_ERROR_INVALID_CODE'));
             return;
         }
 
