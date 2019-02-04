@@ -74,7 +74,6 @@ abstract class UserinvitesHelper
      */
     public static function sendInvite($item)
     {
-        echo '<pre>'; var_dump($item); echo '</pre>'; exit;
         $uri        = JUri::getInstance();
         $admin_path = str_replace('index.php', '', $uri->getPath());
 
