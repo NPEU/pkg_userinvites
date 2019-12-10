@@ -80,7 +80,7 @@ class UserInvitesViewUserinvites extends JViewLegacy
 
         JToolBarHelper::title($title, 'userinvites');
 
-        if ($canDo->get('core.admin')) {
+        if ($canDo->get('core.manage')) {
             if (!empty($this->items)) {
                 JToolBarHelper::custom('userinvites.resend', 'refresh.png', 'refresh_f2.png', 'COM_USERINVITES_TOOLBAR_RESEND', false);
                 JToolBarHelper::deleteList('', 'userinvites.delete', 'JTOOLBAR_DELETE');
