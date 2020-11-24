@@ -37,7 +37,8 @@ class UserinvitesViewSendinvites extends JViewLegacy
         $this->form = $form;
 
         // Check for errors.
-        if (count($errors = $this->get('Errors'))) {
+        if (!empty($this->get('Errors'))) {
+            $errors = $this->get('Errors');
             JError::raiseError(500, implode('<br />', $errors));
 
             return false;
