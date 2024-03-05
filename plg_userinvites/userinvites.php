@@ -26,7 +26,7 @@ class plgSystemUserInvites extends JPlugin
     public function onAfterInitialise()
     {
         $app = JFactory::getApplication();
-        if ($app->isAdmin()) {
+        if ($app->isClient('administrator')) {
             return; // Don't run in admin
         }
         $router   = $app->getRouter();
