@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form
+    addruleprefix="NPEU\Component\Userinvites\Administrator\Rule"
+    addfieldprefix="NPEU\Component\Userinvites\Administrator\Field"
+>
+    <fieldset
+        name="main"
+        class="adminform"
+        label="COM_USERINVITES_MAIN_LEGEND_SEND"
+    >
+        <field
+            name="emails"
+            type="textarea"
+            rows="10"
+            label="COM_USERINVITES_EMAILS_LABEL"
+            description="COM_USERINVITES_EMAILS_LABEL_DESC"
+            class="inputbox"
+            default=""
+            required="true"
+            validate="Emails"
+        />
+        <field
+            name="groups"
+            type="usergrouplist"
+            label="COM_USERINVITES_USERGROUPS_LABEL"
+            description="COM_USERINVITES_USERGROUPS_DESC"
+            class="inputbox"
+            default=""
+            required="true"
+            multiple="true"
+            size="10"
+        />
+        <field
+            name="email_body"
+            type="textarea"
+            rows="10"
+            label="COM_USERINVITES_EMAIL_LABEL"
+            description="COM_USERINVITES_EMAIL_DESC"
+            class="inputbox"
+            default=""
+        />
+    </fieldset>
+</form>
