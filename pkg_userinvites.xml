@@ -14,7 +14,7 @@
     <packagerurl>https://github.com/NPEU/pkg_userinvites/archive/v3.0.0.zip</packagerurl>
 
     <!--  The version string is recorded in the components table -->
-    <version>3.0.0</version>
+    <version>4.0.0</version>
     <!-- The description is optional and defaults to the name -->
     <description>Adds an 'invitation only' layer over Joomla's registration system.</description>
 
