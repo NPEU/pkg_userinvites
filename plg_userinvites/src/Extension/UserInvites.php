@@ -238,7 +238,7 @@ class UserInvites extends CMSPlugin implements SubscriberInterface
 
         $code = Factory::getApplication()->input->get('code');
         ###JLog::add((string) $uri, JLog::NOTICE, 'plgSystemUserinvites');
-        Log::add($code, Log::NOTICE, 'plgSystemUserinvites');
+        #Log::add($code, Log::NOTICE, 'plgSystemUserinvites');
 
         if ($code
             && $uri->getVar('option') == 'com_users'
