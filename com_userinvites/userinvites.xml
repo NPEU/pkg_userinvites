@@ -14,10 +14,6 @@
 
     <namespace path="src">NPEU\Component\Userinvites</namespace>
 
-    <updateservers>
-        <server type="extension" name="NPEU: com_userinvites Update Site">https://raw.githubusercontent.com/NPEU/com_userinvites/main/update-manifest.xml</server>
-    </updateservers>
-
     <install>
         <sql>
             <file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
