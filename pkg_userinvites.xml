@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<extension type="package" version="3.2.0" method="upgrade">
+<extension type="package" method="upgrade">
 
     <name>User Invites Package</name>
     <author>Andy Kirk</author>
@@ -11,10 +11,10 @@
 
     <packagename>userinvites</packagename>
     <packager>Andy Kirk</packager>
-    <packagerurl>https://github.com/NPEU/pkg_userinvites/archive/v2.0.12.zip</packagerurl>
+    <packagerurl>https://github.com/NPEU/pkg_userinvites</packagerurl>
 
     <!--  The version string is recorded in the components table -->
-    <version>2.0.12</version>
+    <version>4.1.0</version>
     <!-- The description is optional and defaults to the name -->
     <description>Adds an 'invitation only' layer over Joomla's registration system.</description>
 

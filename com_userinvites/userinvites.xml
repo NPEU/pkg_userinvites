@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" method="upgrade">
+
+    <name>COM_USERINVITES</name>
+    <author>Andy Kirk</author>
+    <authorEmail>andy.kirk@npeu.ox.ac.uk</authorEmail>
+    <authorUrl>https://www.npeu.ox.ac.uk</authorUrl>
+    <creationDate>March 2024</creationDate>
+    <copyright>(C) NPEU 2024</copyright>
+    <license>MIT License; see LICENSE.md</license>
+
+    <version>4.1.0</version>
+    <description>COM_USERINVITES_DESCRIPTION</description>
+
+    <namespace path="src">NPEU\Component\Userinvites</namespace>
+
+    <install>
+        <sql>
+            <file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+        </sql>
+    </install>
+    <uninstall>
+        <sql>
+            <file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+        </sql>
+    </uninstall>
+    <update>
+        <schemas>
+            <schemapath type="mysql">sql/updates/mysql</schemapath>
+        </schemas>
+    </update>
+
+    <administration>
+        <menu>COM_USERINVITES_MENU</menu>
+        <submenu>
+            <menu link="option=com_userinvites" view="sendinvites">
+                COM_USERINVITES_MANAGER_SUBMENU_SEND
+            </menu>
+            <menu link="option=com_userinvites&amp;view=userinvites" view="userinvites">
+                COM_USERINVITES_MANAGER_SUBMENU_INVITES
+            </menu>
+        </submenu>
+
+
+        <files folder="admin">
+            <file>access.xml</file>
+            <file>config.xml</file>
+            <folder>forms</folder>
+            <folder>language</folder>
+            <folder>services</folder>
+            <folder>sql</folder>
+            <folder>src</folder>
+            <folder>tmpl</folder>
+        </files>
+    </administration>
+
+</extension>
