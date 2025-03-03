@@ -117,7 +117,7 @@ class UserInvites extends CMSPlugin implements SubscriberInterface
         $code = $app->input->get('code');
         if (empty($code)) {
             ###JLog::add('No registration code', JLog::NOTICE, 'plgSystemUserinvites');
-            throw new Exception(JText::_('PLG_SYSTEM_USERINVITES_ERROR_NO_CODE'), 404);
+            throw new GenericDataException(Text::_('PLG_SYSTEM_USERINVITES_ERROR_NO_CODE'), 404);
             return;
         }
 
@@ -131,7 +131,7 @@ class UserInvites extends CMSPlugin implements SubscriberInterface
         $result = $db->loadAssoc();
         if (is_null($result)) {
             ###JLog::add('Invlaid registration code', JLog::NOTICE, 'plgSystemUserinvites');
-            throw new Exception(JText::_('PLG_SYSTEM_USERINVITES_ERROR_INVALID_CODE'), 404);
+            throw new GenericDataException(Text::_('PLG_SYSTEM_USERINVITES_ERROR_INVALID_CODE'), 404);
             return;
         }
 
@@ -141,13 +141,14 @@ class UserInvites extends CMSPlugin implements SubscriberInterface
             return;
         }
 
+
         // Form errrors:
         $form_errors = false;
 
         // Check if the code has expired:
         if (time() > strtotime($result['expires'])) {
             // User did not enter the email they were invited with:
-            #throw new Exception(JText::_('PLG_SYSTEM_USERINVITES_ERROR_EXPIRED_CODE'), 100);
+            #throw new Exception(Text::_('PLG_SYSTEM_USERINVITES_ERROR_EXPIRED_CODE'), 100);
             $app->enqueueMessage(Text::_('PLG_SYSTEM_USERINVITES_ERROR_EXPIRED_CODE'), 'error');
             $form_errors = true;
         }
@@ -195,23 +196,26 @@ class UserInvites extends CMSPlugin implements SubscriberInterface
             $db   = Factory::getDBO();
             // Add the groups for the user:
             $query = $db->getQuery(true);
-            $query->select('groups')
+            $query->select($db->quoteName('groups'))
               ->from($db->quoteName('#__userinvites'))
-              ->where('email = "' . $data['email'] . '"');
+              ->where($db->quoteName('email') . ' = ' . $db->quote($user['email']));
             $db->setQuery($query);
             $groups = json_decode($db->loadResult(), true);
-            foreach ($groups as $group) {
-                $query = $db->getQuery(true);
-                $query->insert('#__user_usergroup_map');
-                $query->columns('user_id, group_id');
-                $query->values($data['id'] . ',' . (int) $group);
-                $db->setQuery($query);
-                $db->execute();
+
+            if (is_array($groups)) {
+                foreach ($groups as $group) {
+                    $query = $db->getQuery(true);
+                    $query->insert('#__user_usergroup_map');
+                    $query->columns('user_id, group_id');
+                    $query->values($user['id'] . ',' . (int) $group);
+                    $db->setQuery($query);
+                    $db->execute();
+                }
             }
             // Delete the invitation:
             $query = $db->getQuery(true);
             $query->delete('#__userinvites');
-            $query->where('email = "' . $data['email'] . '"');
+            $query->where($db->quoteName('email') . ' = ' . $db->quote($user['email']));
             $db->setQuery($query);
             $db->execute();
         }
