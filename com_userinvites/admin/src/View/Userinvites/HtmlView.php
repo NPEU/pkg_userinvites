@@ -86,14 +86,29 @@ class HtmlView extends BaseHtmlView {
         // What Access Permissions does this user have? What can (s)he do?
         $this->canDo = ContentHelper::getActions('com_userinvites');
 
-        // Add user groups
+        // Add user groups:
+
+        /*
+        // This uses the correct model, but it returns a list based on state limit (paginated) and we
+        // need a complete list of groups here and I'm not sure how to do that so I'm querying the
+        // table directly
         $groups_model  = $app->bootComponent('com_users')->getMVCFactory()->createModel('Groups', 'Administrator');
         $usergroupObjs = $groups_model->getItems();
         $usergroups = [];
         foreach ($usergroupObjs as $usergroup) {
             $usergroups[$usergroup->id] = $usergroup->title;
-        }
+        }*/
 
+        $db    = Factory::getDBO();
+        $query = $db->getQuery(true);
+        $query->select('id, title')
+          ->from($db->quoteName('#__usergroups'));
+        $db->setQuery($query);
+        $result = $db->loadObjectList();
+        $usergroups = [];
+        foreach ($result as $usergroup) {
+            $usergroups[$usergroup->id] = $usergroup->title;
+        }
         $this->usergroups = $usergroups;
 
         $errors = $this->get('Errors');
@@ -145,7 +160,7 @@ class HtmlView extends BaseHtmlView {
         ToolBarHelper::title($title);
 
         if ($this->canDo->get('core.create')) {
-            ToolBarHelper::addNew('userinvite.add', 'JTOOLBAR_NEW');
+            #ToolBarHelper::addNew('userinvite.add', 'JTOOLBAR_NEW');
         }
         if ($this->canDo->get('core.edit')) {
             ToolBarHelper::editList('userinvite.edit', 'JTOOLBAR_EDIT');
