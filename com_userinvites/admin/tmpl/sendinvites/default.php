@@ -52,7 +52,6 @@ $field_types_no_label = [
     'Button'
 ];
 
-
 ?>
 
 <form action="<?php echo Route::_('index.php?option=com_userinvites&amp;view=sendinvites'); ?>"
@@ -64,7 +63,7 @@ $field_types_no_label = [
     <?php #echo LayoutHelper::render('joomla.edit.title_alias', $this); ?>
 
     <div class="main-card">
-        <?php echo HTMLHelper::_('uitab.startTabSet', 'myTab', array('active' => 'main')); ?>
+        <?php echo HTMLHelper::_('uitab.startTabSet', 'myTab', ['active' => 'main']); ?>
 
         <?php $i=0; foreach ($fieldsets as $fieldset): $i++; ?>
         <?php $form_fieldset = $this->form->getFieldset($fieldset->name); ?>
@@ -74,7 +73,12 @@ $field_types_no_label = [
         <div class="row">
             <?php if ($fieldset->name == 'main'): ?>
             <div class="col-xl-9"><?php else: ?><div class="col-12"><?php endif; ?>
-                <?php $hidden_fields = array(); foreach($form_fieldset as $field): /*if(!in_array($field->fieldname, $global_edit_fields)):*/ ?>
+                <?php $hidden_fields = []; foreach($form_fieldset as $field): /*if(!in_array($field->fieldname, $global_edit_fields)):*/ ?>
+
+                <?php if ($field->name == 'jform[email_body]'){
+                    $field->setValue($email_template);
+                } ?>
+
                 <?php if($field->type == 'Hidden'){$hidden_fields[] = $field->input; continue;} ?>
                 <?php if(!empty($field->getAttribute('hiddenLabel'))){ echo $field->input; continue; } ?>
 
@@ -85,7 +89,7 @@ $field_types_no_label = [
                     </div>
                     <?php endif; ?>
                     <div class="controls"<?php if (in_array($field->type, $field_types_full_width)): ?> style="flex-basis:100%;"<?php endif; ?>>
-                        <?php if ($field->name == 'jform[email_body]'){$field->value = $email_template;} ?>
+
                         <?php echo $field->input; ?>
 
                         <?php if ($field->description != ''): ?>
